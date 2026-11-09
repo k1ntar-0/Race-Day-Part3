@@ -1,0 +1,27 @@
+name: Validate Repository Documentation
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  validate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify /docs directory and required files exist
+        run: |
+          echo "Checking repository structure..."
+          if [ ! -d "docs" ]; then
+            echo "Error: /docs folder missing!" && exit 1
+          fi
+
+          if ! ls docs/*.sql 1> /dev/null 2>&1; then
+            echo "Error: SQL script missing from /docs" && exit 1
+          fi
+
+          echo "Validation complete! Repository structure is valid."

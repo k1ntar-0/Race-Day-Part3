@@ -1,0 +1,14 @@
+services:
+  raceday_api:
+    build:
+      context: .
+      dockerfile: RaceDay.Api/Dockerfile
+    ports:
+      - "8080:8080"
+
+  raceday_web:
+    build:
+      context: .
+      dockerfile: RaceDay.Web/Dockerfile
+    ports:
+      - "8081:8080"
